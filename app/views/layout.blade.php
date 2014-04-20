@@ -5,13 +5,13 @@
 	<title>@yield('title')</title>
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
-    <link href="public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
-    <link href="public/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('public/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
-    <link href="public/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('public/css/ionicons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="public/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('public/css/AdminLTE.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,12 +43,12 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i>
-                            <span>Jane Doe <i class="caret"></i></span>
+                            <span> {{ studly_case(Auth::user()->username) }} <i class="caret"></i></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat">Log out</a>
+                                <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Log out</a>
                             </li>
                         </ul>
                     </li>
@@ -148,10 +148,10 @@
     </div>
 
 	<!-- jQuery 2.0.2 -->
-    <script src="public/js/jquery-2.1.0.js"></script>
+    <script src="{{ asset('public/js/jquery-2.1.0.js') }}"></script>
     <!-- Bootstrap -->
-    <script src="public/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="{{ asset('public/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <!-- AdminLTE App -->
-    <script src="public/js/AdminLTE/app.js" type="text/javascript"></script>
+    <script src="{{ asset('public/js/AdminLTE/app.js') }}" type="text/javascript"></script>
 </body>
 </html>
