@@ -11,7 +11,52 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('index');
+/*
+*
+* Authentication process
+*
+*/
+
+Route::get('login', function(){
+	return View::make('login');
+});
+
+Route::post('login', function(){
+	if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))) {
+		return Redirect::intended();
+	} else {
+		return Redirect::to('login');
+	}
+});
+
+Route::get('logout', array('as' => 'logout', function(){
+	Auth::logout();
+
+	return Redirect::to('login');
+}));
+
+
+/**
+*
+* filter all pages in this application that require Authentication
+*
+*/
+
+Route::group(array('before' => 'auth'), function(){
+
+	Route::get('/', function()
+	{
+		return View::make('index');
+	});
+
+	Route::get('product', function()
+	{
+		return View::make('products.list');
+	});
+
+	Route::get('product/add', function()
+	{
+		return View::make('products.add');
+	});
+
 });
