@@ -61,6 +61,33 @@ class Product extends Eloquent {
 	}
 
 	/**
+	*
+	* Defining one to one relationship between Product and Stock
+	**/
+	public function category()
+	{
+		return $this->hasOne('Category', 'id', 'category_id');
+	}
+
+	/**
+	*
+	* Defining one to one relationship between Product and Stock
+	**/
+	public function location()
+	{
+		return $this->hasOne('Location', 'id', 'location_id');
+	}
+
+	/**
+	*
+	* Defining one to one relationship between Product and Stock
+	**/
+	public function unit()
+	{
+		return $this->hasOne('Unit', 'id', 'unit_id');
+	}
+
+	/**
 	* validating data before saving to database
 	*
 	* @param data to validate

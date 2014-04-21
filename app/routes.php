@@ -49,10 +49,7 @@ Route::group(array('before' => 'auth'), function(){
 		return View::make('index');
 	});
 
-	Route::get('product', function()
-	{
-		return View::make('products.list');
-	});
+	Route::get('product', array('uses' => 'ProductController@showProduct'));
 
 	Route::get('product/add', array('uses' => 'ProductController@addProduct'));
 	Route::post('product/add', array('uses' => 'ProductController@putProduct'));

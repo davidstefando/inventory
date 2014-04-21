@@ -6,8 +6,13 @@
 		* Showing product lists
 		*
 		*/
-		protected function showProducts(){
-			
+		protected function showProduct(){
+			$products = Product::has('stock')
+				->has('category')
+				->has('location')
+				->has('unit')
+				->paginate(10);
+			return View::make('products.list', compact('products'));
 		}
 
 

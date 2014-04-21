@@ -26,15 +26,16 @@
                 <div class="box">
                     <div class="box-body">
                         <div class="row">
+                            {{ Form::open() }}
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jumlah Data</label>
                                     <select class="form-control">
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                        <option>option 5</option>
+                                        <option value="1">1</option>
+                                        <option value="1">5</option>
+                                        <option value="1">10</option>
+                                        <option value="1">50</option>
+                                        <option value="1">100</option>
                                     </select>
                                 </div>
                             </div>
@@ -56,6 +57,7 @@
                                     <input class="form-control" type="text">
                                 </div>
                             </div>
+                            {{ Form::close() }}
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -75,72 +77,30 @@
                         <div class="table-responsive no-padding">
                             <table class="table table-hover">
                                 <tbody><tr>
-                                    <th>ID</th>
-                                    <th>User</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Reason</th>
+                                    <th>SKU</th>
+                                    <th>Nama</th>
+                                    <th>Kategori</th>
+                                    <th>Lokasi</th>
+                                    <th>Harga Beli</th>
+                                    <th>Harga Jual</th>
+                                    <th>Stock</th>
                                 </tr>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-success">Approved</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                </tr>
-                                <tr>
-                                    <td>219</td>
-                                    <td>Jane Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-warning">Pending</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                </tr>
-                                <tr>
-                                    <td>657</td>
-                                    <td>Bob Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-primary">Approved</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                </tr>
-                                <tr>
-                                    <td>175</td>
-                                    <td>Mike Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-danger">Denied</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                </tr>
-                                <tr>
-                                    <td>175</td>
-                                    <td>Mike Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-danger">Denied</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                </tr>
-                                <tr>
-                                    <td>175</td>
-                                    <td>Mike Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-danger">Denied</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                </tr>
-                                <tr>
-                                    <td>175</td>
-                                    <td>Mike Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-danger">Denied</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                </tr>
+                                @foreach ($products as $product)
+                                    <tr>
+                                        <td>{{ $product->sku }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->category->name }}</td>
+                                        <td>{{ $product->location->name }}</td>
+                                        <td>Rp {{ number_format($product->stock->buy_price, 2, ',', '.') }}</td>
+                                        <td>Rp {{ number_format($product->stock->sell_price, 2, ',', '.') }}</td>
+                                        <td>{{ $product->stock->stock }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody></table>
                         </div>
                     </div>
                     <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">«</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
+                        {{ $products->links(); }}
                     </div>
                 </div>
             </div>
