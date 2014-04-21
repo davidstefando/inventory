@@ -54,9 +54,8 @@ Route::group(array('before' => 'auth'), function(){
 		return View::make('products.list');
 	});
 
-	Route::get('product/add', function()
-	{
-		return View::make('products.add');
-	});
+	Route::get('product/add', array('uses' => 'ProductController@addProduct'));
+	Route::post('product/add', array('uses' => 'ProductController@putProduct'));
+
 
 });
