@@ -19,6 +19,19 @@
 
     <!-- Main content -->
     <section class="content">
+        @if (Session::get('message') == "success")
+            <div class="alert alert-success alert-dismissable">
+                Transaksi penjualan produk berhasil disimpan
+                <i class="fa fa-check"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            </div>
+        @elseif (Session::get('message') == "failed")
+            <div class="alert alert-danger alert-dismissable">
+                Transaksi penjualan produk gagal
+                <i class="fa fa-check"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            </div>
+        @endif
        <div class="row">
             <div class="col-md-6">
                 <div class="box box-info">
@@ -29,15 +42,15 @@
                     <div class="box-body">
                         <div class="form-group">
                                 <label for="exampleInputEmail1">Kode Referensi Penjualan</label>
-                                <input class="form-control" id="exampleInputEmail1" placeholder="" type="email">
+                                <input class="form-control" id="exampleInputEmail1"  placeholder="" type="text" value="{{ Sell::getRefCode(); }}"  disabled>
                         </div>
                         <div class="form-group">
-                            <label>Tanggal Pembelian</label>
+                            <label>Tanggal Pembelian (yyyy-mm-dd)</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input class="form-control datemask" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" type="text">
+                                <input class="form-control" type="text" value="{{ date('Y-m-d') }}" disabled>
                             </div><!-- /.input group -->
                         </div>
                     </div>
@@ -50,11 +63,17 @@
                         <h3 class="box-title">Data Barang</h3>
                     </div>
                     <div class="box-body">
+                        <form method="post" id="add-product">
                         <div class="form-group">
-                                <label for="exampleInputEmail1">Kode/Nama Barang</label>
-                                <input class="form-control" id="exampleInputEmail1" placeholder="" type="email">
+                            <label for="exampleInputEmail1">Kode/Nama Barang</label>
+                            <input class="form-control" id="sku" placeholder="" name="sku" type="text" value="SKU-PROD-11">
                         </div>
-                        <a class="btn btn-success"><i class="fa fa-plus"></i>Tambah Barang</a>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Jumlah</label>
+                            <input class="form-control" id="qty" placeholder="" name="qty" type="text">
+                        </div>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>Tambah Barang</button>
+                        </form>
                     </div>
                 </div>       
             </div>
@@ -62,39 +81,25 @@
        <div class="row">
             <div class="col-md-12">
                 <div class="box box-solid">
+                    {{ Form::open() }}
                      <div class="box-body">
                         <div class="table-responsive no-padding">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="temp-product">
                                 <tbody><tr>
                                     <th>SKU</th>
                                     <th>Nama</th>
                                     <th>Jumlah</th>
-                                    <th>Harga Jual</th>
+                                    <th>Harga Sebelumnya</th>
+                                    <th>Harga Jual Sekarang</th>
                                     <th>Action</th>
-                                </tr>
-                                <tr>
-                                    <td>B21-231-3</td>
-                                    <td>Komputer Komputer Komputer Komputeran</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input class="form-control" id="exampleInputEmail1" placeholder="jumlah penjualan" type="email">
-                                            <div class="input-group-addon">Unit</div>
-                                        </div>    
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Rp</div>
-                                            <input class="form-control" id="exampleInputEmail1" placeholder="Harga jual" type="email">
-                                        </div>                                      
-                                    </td>
-                                    <td><a class="btn btn-danger"><i class="fa fa-trash-o"></i>Hapus</a></td>
                                 </tr>
                             </tbody></table>
                         </div>
                     </div>
                     <div class="box-footer">
-                            <button type="submit" class="btn btn-primary btn-lg">Proses <i class="fa fa-arrow-circle-right"></i></button>
+                            <button type="submit" class="btn btn-primary btn-lg">Selesai <i class="fa fa-arrow-circle-right"></i></button>
                     </div>
+                    {{ Form::close() }}
                 </div>
             </div>
        </div>

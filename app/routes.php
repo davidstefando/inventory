@@ -55,5 +55,9 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('product/add', array('uses' => 'ProductController@addProduct'));
 	Route::post('product/add', array('uses' => 'ProductController@putProduct'));
 
+	Route::get('sell', array('uses' => 'SellController@index'));
+	Route::post('sell', array('uses' => 'SellController@sell'));
+	Route::post('sell/add', array('uses' => 'SellController@addProduct'));
+
 
 });
