@@ -11,10 +11,50 @@
 				->has('category')
 				->has('location')
 				->has('unit')
-				->paginate(10);
+				->paginate(15);
 			return View::make('products.list', compact('products'));
 		}
 
+		/**
+		*
+		* Filter the product lists
+		*
+		*/
+		protected function filterProduct(){
+			if ((Input::get('criteria') == "name") || (Input::get('criteria') == "sku")) {
+
+				$products = Product::where(Input::get('criteria'), 'like', '%' . Input::get('query') . '%')
+					->has('category')
+					->has('location')
+					->has('unit')
+					->has('stock')
+					->orderBy(Input::get('criteria'), Input::get('order'))
+					->paginate(0);
+
+			} elseif (Input::get('criteria') == "category") {
+
+				$products = Product::whereHas('category', function($q){
+					$q->where('name', 'like', '%' . Input::get('query') . '%');	
+				})
+				->has('location')
+				->has('unit')
+				->has('stock')
+				->paginate(0);
+
+			} else {
+
+				$products = Product::whereHas('location', function($q){
+					$q->where('name', 'like', '%' . Input::get('query') . '%');	
+				})
+				->has('category')
+				->has('unit')
+				->has('stock')
+				->paginate(0);
+
+			}
+
+			return View::make('products.list', compact('products'));
+		}
 
 		/**
 		*
@@ -59,6 +99,5 @@
 			}
 
 		}
-
 
 	}

@@ -25,45 +25,42 @@
                 <!-- small box -->
                 <div class="box">
                     <div class="box-body">
+                        {{ Form::open() }}
                         <div class="row">
-                            {{ Form::open() }}
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Jumlah Data</label>
-                                    <select class="form-control">
-                                        <option value="1">1</option>
-                                        <option value="1">5</option>
-                                        <option value="1">10</option>
-                                        <option value="1">50</option>
-                                        <option value="1">100</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Berdasarkan</label>
-                                    <select class="form-control">
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                        <option>option 5</option>
-                                    </select>
+                                    {{ Form::select('criteria', 
+                                        array('name' => 'Nama', 'sku' => 'SKU', 'category' => 'Kategori', 'location' => 'Lokasi'), 
+                                        'name', 
+                                        array('class' => 'form-control')) 
+                                    }}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                <div class="form-group">
                                     <label>Kriteria Pencarian</label>
-                                    <input class="form-control" type="text">
+                                    {{ Form::text('query', '' , array('class' => 'form-control')) }}
                                 </div>
                             </div>
-                            {{ Form::close() }}
+                            <div class="col-md-3">
+                               <div class="form-group">
+                                    <label>Order</label>
+                                    {{ Form::select('order', 
+                                        array('asc' => 'Ascending', 'desc' => 'Descending'), 
+                                        'asc', 
+                                        array('class' => 'form-control')) 
+                                    }}
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i>Filter</button>
                             </div>
                         </div>
+                        {{ Form::close() }}
                     </div>
                 </div>
                 <div class="box box-solid">

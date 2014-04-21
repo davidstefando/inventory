@@ -50,6 +50,7 @@ Route::group(array('before' => 'auth'), function(){
 	});
 
 	Route::get('product', array('uses' => 'ProductController@showProduct'));
+	Route::post('product', array('uses' => 'ProductController@filterProduct'));
 
 	Route::get('product/add', array('uses' => 'ProductController@addProduct'));
 	Route::post('product/add', array('uses' => 'ProductController@putProduct'));
