@@ -56,8 +56,14 @@ class Sell extends Eloquent {
 			for($i = 0; $i < count($input['sku']); $i++){
 				if ((is_numeric($input['qty'][$i])) && (is_numeric($input['price'][$i]))) {
 					$total = $input['qty'][$i] * $input['price'][$i];
+
 					$sell->products()->attach($input['sku'][$i], 
 						array('qty' => $input['qty'][$i], 'price' => $input['price'][$i], 'total' => $total));				
+
+					//updating product price
+					$product = Stock::find($input['sku'][$i]);
+					$product->sell_price = $input['price'][$i];
+					$product->save();
 				} else {
 					$sell->delete();
 					return false;
