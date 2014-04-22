@@ -73,19 +73,19 @@
                     </div>
                 </div>
                 <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
+                <!-- <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Pencarian Barang..."/>
                         <span class="input-group-btn">
                             <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
-                </form>
+                </form> -->
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a href="#">
+                        <a href="{{ url('') }}">
                             <i class="fa fa-home"></i> <span>Dashboard</span>
                         </a>
                     </li>
@@ -95,22 +95,22 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/UI/general.html"><i class="fa fa-angle-double-right"></i> Daftar Produk</a></li>
-                            <li><a href="pages/UI/icons.html"><i class="fa fa-angle-double-right"></i> Tambah Produk</a></li>
+                            <li><a href="{{ url('product') }}"><i class="fa fa-angle-double-right"></i> Daftar Produk</a></li>
+                            <li><a href="{{ url('product/add') }}"><i class="fa fa-angle-double-right"></i> Tambah Produk</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
+                        <a href="{{ url('sell') }}">
                             <i class="fa fa-money"></i> <span>Penjualan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
+                        <a href="{{ url('purchase') }}">
                             <i class="fa fa-truck"></i> <span>Pembelian</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
+                        <a href="{{ url('stock/check') }}">
                             <i class="fa fa-signal"></i> <span>Cek Saldo</span>
                         </a>
                     </li>
@@ -121,9 +121,9 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/UI/general.html"><i class="fa fa-angle-double-right"></i> Laporan Penjualan</a></li>
-                            <li><a href="pages/UI/icons.html"><i class="fa fa-angle-double-right"></i> Laporan Pembelian</a></li>
-                            <li><a href="pages/UI/buttons.html"><i class="fa fa-angle-double-right"></i> Stock Barang</a></li>
+                            <li><a href="{{ url('sell/report') }}"><i class="fa fa-angle-double-right"></i> Laporan Penjualan</a></li>
+                            <li><a href="{{ url('purchase/report') }}"><i class="fa fa-angle-double-right"></i> Laporan Pembelian</a></li>
+                            <li><a href="{{ url('stock/report') }}"><i class="fa fa-angle-double-right"></i> Stock Barang</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -149,6 +149,7 @@
 
 	<!-- jQuery 2.0.2 -->
     <script src="{{ asset('public/js/jquery-2.1.0.js') }}"></script>
+    <script src="{{ asset('public/js/product_transaction.js') }}"></script>
     <!-- Bootstrap -->
     <script src="{{ asset('public/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <!-- AdminLTE App -->
