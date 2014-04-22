@@ -63,7 +63,7 @@
                         <h3 class="box-title">Data Barang</h3>
                     </div>
                     <div class="box-body">
-                        <form method="post" id="add-product">
+                        <form method="post" id="add-product-to-sell">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Kode/Nama Barang</label>
                             <input class="form-control" id="sku" placeholder="" name="sku" type="text" value="SKU-PROD-11">
