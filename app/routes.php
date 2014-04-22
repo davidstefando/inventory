@@ -71,4 +71,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('purchase/report/monthly', array('uses' => 'ReportController@monthlypurchaseReport'));
 	Route::post('purchase/report/year', array('uses' => 'ReportController@yearpurchaseReport'));
 
+	Route::get('stock/check', array('uses' => 'StockController@checkStock'));
+	Route::post('stock/check', array('uses' => 'StockController@showStock'));
+
 });
