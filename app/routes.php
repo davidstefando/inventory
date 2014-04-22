@@ -66,5 +66,9 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('purchase', array('uses' => 'PurchaseController@index'));
 	Route::post('purchase', array('uses' => 'PurchaseController@purchase'));
 	Route::post('purchase/add', array('uses' => 'PurchaseController@addProduct'));
+	Route::get('purchase/report', array('uses' => 'ReportController@purchaseReport'));
+	Route::post('purchase/report/daily', array('uses' => 'ReportController@dailypurchaseReport'));
+	Route::post('purchase/report/monthly', array('uses' => 'ReportController@monthlypurchaseReport'));
+	Route::post('purchase/report/year', array('uses' => 'ReportController@yearpurchaseReport'));
 
 });
