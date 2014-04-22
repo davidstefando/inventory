@@ -30,6 +30,7 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
+                            {{ Form::open(array('url' => 'sell/report/daily')) }}
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -38,42 +39,42 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input class="form-control datemask" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" type="text">
+                                            {{ Form::text('date', null, array('class' => 'form-control', 'placeholder' => 'yyyy-mm-dd')) }}
                                         </div><!-- /.input group -->
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Urutkan Data Berdasarkan</label>
-                                        <select class="form-control">
-                                            <option>Kode Barang</option>
-                                            <option>Nama</option>
-                                            <option>Harga Beli</option>
-                                            <option>Harga Jual</option>
-                                            <option>Qty</option>
-                                        </select>
+                                        {{ Form::select('criteria', array('products.sku' => 'Kode Barang',
+                                                                            'name' => 'Nama Barang',
+                                                                            'sell_price' => 'Harga Jual',
+                                                                            'buy_price' => 'Harga Beli',
+                                                                            'qty' => 'Qty'),
+                                                 'sku', array('class' => 'form-control')) }}
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Urutan</label>
-                                        <select class="form-control">
-                                            <option>Ascending</option>
-                                            <option>Descending</option>
-                                        </select>
+                                        {{ Form::select('order', array('asc' => 'Ascending',
+                                                                        'desc' => 'Descending'),
+                                                'asc', array('class' => 'form-control')) }}
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Kode Barang</label>
-                                        <input class="form-control" type="text" placeholder="kode barang">
+                                        {{ Form::text('sku', null, array('class' => 'form-control', 'placeholder' => 'Kode Barang')) }}
                                         <p class="help-block">Isi kode barang jika ingin melihat laporan per barang</p>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Tampilkan Laporan</button>
+                            {{ Form::close() }}
                         </div><!-- /.tab-pane -->
                         <div class="tab-pane" id="tab_2">
+                            {{ Form::open(array('url' => 'sell/report/monthly')) }}
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -82,7 +83,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <select class="form-control"></select>
+                                            {{ Form::selectMonth('month', null, array('class' => 'form-control')) }}
                                         </div><!-- /.input group -->
                                     </div>
                                 </div>
@@ -93,7 +94,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <select class="form-control"></select>
+                                            {{ Sell::getYearTrack() }}
                                         </div><!-- /.input group -->
                                     </div>
                                 </div>
@@ -102,35 +103,35 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Urutkan Data Berdasarkan</label>
-                                        <select class="form-control">
-                                            <option>Kode Barang</option>
-                                            <option>Nama</option>
-                                            <option>Harga Beli</option>
-                                            <option>Harga Jual</option>
-                                            <option>Qty</option>
-                                        </select>
+                                        {{ Form::select('criteria', array('products.sku' => 'Kode Barang',
+                                                                            'name' => 'Nama Barang',
+                                                                            'sell_price' => 'Harga Jual',
+                                                                            'buy_price' => 'Harga Beli',
+                                                                            'qty' => 'Qty'),
+                                                 'sku', array('class' => 'form-control')) }}
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Urutan</label>
-                                        <select class="form-control">
-                                            <option>Ascending</option>
-                                            <option>Descending</option>
-                                        </select>
+                                        {{ Form::select('order', array('asc' => 'Ascending',
+                                                                        'desc' => 'Descending'),
+                                                'asc', array('class' => 'form-control')) }}
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Kode Barang</label>
-                                        <input class="form-control" type="text" placeholder="kode barang">
+                                        {{ Form::text('sku', null, array('class' => 'form-control', 'placeholder' => 'Kode Barang')) }}
                                         <p class="help-block">Isi kode barang jika ingin melihat laporan per barang</p>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Tampilkan Laporan</button>
+                            {{ Form::close() }}
                         </div><!-- /.tab-pane -->
                         <div class="tab-pane" id="tab_3">
+                            {{ Form::open(array('url' => 'sell/report/year')) }}
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -139,108 +140,45 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <select class="form-control"></select>
+                                            {{ Sell::getYearTrack() }}
                                         </div><!-- /.input group -->
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Urutkan Data Berdasarkan</label>
-                                        <select class="form-control">
-                                            <option>Kode Barang</option>
-                                            <option>Nama</option>
-                                            <option>Harga Beli</option>
-                                            <option>Harga Jual</option>
-                                            <option>Qty</option>
-                                        </select>
+                                        {{ Form::select('criteria', array('products.sku' => 'Kode Barang',
+                                                                            'name' => 'Nama Barang',
+                                                                            'sell_price' => 'Harga Jual',
+                                                                            'buy_price' => 'Harga Beli',
+                                                                            'qty' => 'Qty'),
+                                                 'sku', array('class' => 'form-control')) }}
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Urutan</label>
-                                        <select class="form-control">
-                                            <option>Ascending</option>
-                                            <option>Descending</option>
-                                        </select>
+                                        {{ Form::select('order', array('asc' => 'Ascending',
+                                                                        'desc' => 'Descending'),
+                                                'asc', array('class' => 'form-control')) }}
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Kode Barang</label>
-                                        <input class="form-control" type="text" placeholder="kode barang">
+                                        {{ Form::text('sku', null, array('class' => 'form-control', 'placeholder' => 'Kode Barang')) }}
                                         <p class="help-block">Isi kode barang jika ingin melihat laporan per barang</p>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Tampilkan Laporan</button>
+                            {{ Form::close() }}
                         </div><!-- /.tab-pane -->
                     </div><!-- /.tab-content -->
                 </div><!-- nav-tabs-custom -->
             </div>
             <div class="col-lg-12 col-xs-12">
-                <div class="box box-solid">
-                    <div class="box-header">
-                        <i class="fa fa-book"></i>
-                        <h3 class="box-title">Laporan Penjualan "Toko Jaya"</h3>
-                        <div class="box-tools pull-right">
-                            <button class="btn btn-success pull-right no-print" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="row invoice-info">
-                            <div class="col-sm-4 invoice-col">
-                                <address>
-                                    <strong>Laporan Harian</strong><br>
-                                    26/12/2014<br>
-                                </address>
-                            </div><!-- /.col -->
-                            <div class="col-sm-4 invoice-col">
-                                <address>
-                                    <strong>Total Penjualan</strong><br>
-                                    Rp 1.000.000,00<br>
-                                </address>
-                            </div><!-- /.col -->
-                            <div class="col-sm-4 invoice-col">
-                                <address>
-                                    <strong>Total Barang Terjual</strong><br>
-                                    521<br>
-                                </address>
-                            </div><!-- /.col -->
-                              
-                        </div>
-                        <div class="table-responsive no-padding">
-                            <table class="table table-hover">
-                                <tbody><tr>
-                                    <th>SKU</th>
-                                    <th>Nama</th>
-                                    <th>Tanggal</th>
-                                    <th>Harga Beli</th>
-                                    <th>Harga Jual</th>
-                                    <th>Qty</th>
-                                    <th>Total</th>
-                                </tr>
-                                <tr>
-                                    <td>B0213-231</td>
-                                    <td>Indomie Goreng</td>
-                                    <td>11-7-2014</td>
-                                    <td>Rp 20.000</td>
-                                    <td>Rp 21.000</td>
-                                    <td>102</td>
-                                    <td>Rp 252.000</td> 
-                                </tr>
-                                <tr>
-                                    <td>B0213-231</td>
-                                    <td>Lotek Instant</td>
-                                    <td>11-7-2014</td>
-                                    <td>Rp 3.500</td>
-                                    <td>Rp 4.000</td>
-                                    <td>400</td>
-                                    <td>Rp 1.600.000</td> 
-                                </tr>
-                            </tbody></table>
-                        </div>
-                    </div>
-                </div>
+                {{ $child }}
             </div>
         </div>
 

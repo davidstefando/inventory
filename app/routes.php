@@ -58,6 +58,10 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('sell', array('uses' => 'SellController@index'));
 	Route::post('sell', array('uses' => 'SellController@sell'));
 	Route::post('sell/add', array('uses' => 'SellController@addProduct'));
+	Route::get('sell/report', array('uses' => 'ReportController@sellReport'));
+	Route::post('sell/report/daily', array('uses' => 'ReportController@dailySellReport'));
+	Route::post('sell/report/monthly', array('uses' => 'ReportController@monthlySellReport'));
+	Route::post('sell/report/year', array('uses' => 'ReportController@yearSellReport'));
 
 	Route::get('purchase', array('uses' => 'PurchaseController@index'));
 	Route::post('purchase', array('uses' => 'PurchaseController@purchase'));

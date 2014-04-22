@@ -79,4 +79,17 @@ class Sell extends Eloquent {
 		$refcode = "SELL-" . $number;
 		return $refcode;
 	}
+
+	/**
+	*
+	* Get combo box contain first to last year of sales
+	*
+	*/
+	public static function getYearTrack(){
+		$min = date('Y', strtotime(Sell::all()->min('date')));
+		$max = date('Y', strtotime(Sell::all()->max('date')));
+
+		return Form::selectRange('year', $min, $max, null, array('class' => 'form-control'));
+
+	}
 }
