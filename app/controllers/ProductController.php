@@ -80,6 +80,9 @@
 			$product = new Product(Input::all());
 
 			if($product->validate(Input::all())){
+				/*Saving product*/
+				$product->save();
+
 				/*Creating initial stock*/
 				$stock = new Stock();
 
@@ -89,9 +92,9 @@
 				$stock->sell_price = Input::get('sell_price');
 				$stock->date = date('Y-m-d');
 
-				/*Saving product and initial stock*/
+				/*Saving initial stock*/
 				$stock->save();
-				$product->save();
+				
 
 				return Redirect::to('product/add')->with('message', 'success');
 			}else{
