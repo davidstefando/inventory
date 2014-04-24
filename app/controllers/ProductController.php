@@ -100,4 +100,48 @@
 
 		}
 
+		/**
+		*
+		* Showing product update form
+		*
+		*/
+		public function updateProduct($sku){
+			$category = Category::all()->lists('name', 'id');
+			$location = Location::all()->lists('name', 'id');
+			$unit = Unit::all()->lists('name', 'id');
+
+			$model = Product::find($sku);
+
+			return View::make('products.update')
+					->with(compact('category'))
+					->with(compact('unit'))
+					->with(compact('location'))
+					->with(compact('model'));
+		}
+
+		/**
+		*
+		* Eding product in database
+		*
+		*/
+		function editProduct($sku){
+			$product = Product::find($sku);
+
+			if($product->validateEdit(Input::all())){
+
+				$product->sku = Input::get('sku');
+				$product->name = Input::get('name');
+				$product->category_id = Input::get('category_id');
+				$product->location_id = Input::get('location_id');	
+				$product->unit_id = Input::get('unit_id');	
+				$product->minimum_stock = Input::get('minimum_stock');	
+				
+				$product->save();				
+
+				return Redirect::to('product/update/' . Input::get('sku'))->with('message', 'success');
+			}else{
+				return Redirect::to('product/update/' . $sku)->withErrors($product->error)->withInput();
+			}
+		}
+
 	}

@@ -67,7 +67,7 @@
                     <div class="box-header">
                         <h3 class="box-title">Data barang</h3>
                         <div class="box-tools pull-right">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>Tambah Produk</button>
+                            <a href="{{ url('product/add') }}" class="btn btn-success"><i class="fa fa-plus fa-inverse">Tambah Produk</i></a>
                         </div>
                     </div>
                     <div class="box-body">
@@ -81,6 +81,7 @@
                                     <th>Harga Beli</th>
                                     <th>Harga Jual</th>
                                     <th>Stock</th>
+                                    <th>Action</th>
                                 </tr>
                                 @foreach ($products as $product)
                                     <tr>
@@ -91,6 +92,9 @@
                                         <td>Rp {{ number_format($product->stock->buy_price, 2, ',', '.') }}</td>
                                         <td>Rp {{ number_format($product->stock->sell_price, 2, ',', '.') }}</td>
                                         <td>{{ $product->stock->stock }}</td>
+                                        <td>
+                                            <a href="{{ url('product/update/' . $product->sku) }}" class='label label-primary'>Edit</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody></table>

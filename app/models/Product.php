@@ -29,6 +29,21 @@ class Product extends Eloquent {
 
 	/**
 	*
+	* Validation rules when editing data
+	*
+	**/
+	protected $editRules = array(
+			'sku' => 'required',
+			'name' => 'required',
+			'category_id' => 'required',
+			'location_id' => 'required',
+			'unit_id' => 'required',
+			'minimum_stock' => 'required|min:0|numeric'
+		);
+
+
+	/**
+	*
 	* Validation error messages
 	*
 	**/
@@ -95,6 +110,22 @@ class Product extends Eloquent {
 	* */
 	public function validate($data){
 		$validator = Validator::make($data, $this->rules);
+
+		if($validator->passes()){
+			return true;
+		}
+
+		$this->error = $validator->messages();
+		return false;
+	}
+
+	/**
+	* Validating data when editing product
+	* @param data to validate
+	* @return validation status
+	*/
+	public function validateEdit($data){
+		$validator = Validator::make($data, $this->editRules);
 
 		if($validator->passes()){
 			return true;
