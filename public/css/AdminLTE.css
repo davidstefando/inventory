@@ -2800,3 +2800,26 @@ Component: timeline
 .pace-inactive {
   display: none;
 }
+
+
+/* AUTOCOMPLETE */
+#autocomplete-result{
+  display: none;
+  position: absolute;
+  width: 96%;
+  height: 200px;
+  background-color: #ffffff;
+  overflow: auto;
+  box-shadow: 1px 3px 2px 1px #888888;
+  z-index: +10;
+}
+
+#autocomplete-result tr:hover{
+  background-color: #3c8dbc;
+  color: #ffffff;
+}
+
+#autocomplete-result tr th{
+  background-color: #3b3b3b;
+  color:#ffffff;
+}

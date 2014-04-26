@@ -49,6 +49,29 @@
 		return false;
 	});
 
+	/** 
+	*	Product Autocomplete
+	*	Suggest product by SKU or Name
+	*/
+	$("#sku").on('keyup', function(){
+		$("#autocomplete-result").css({'display' : 'block'});
+
+		var qry = this.value;
+
+		$.ajax({
+			'url' : $("#sku").attr('url'),
+			'method' : 'post',
+			'data' : {'qry' : qry},
+			'success' : function(result){
+				$("#autocomplete-result").html(result);
+			}			
+		});
+	});	
+
+	function autocomplete_select(id){
+		$("#autocomplete-result").css({'display' : 'none'});		
+		$("#sku").val(id);
+	}
 
 
 function remove_product(id){

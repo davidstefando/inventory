@@ -66,7 +66,8 @@
                         <form method="post" id="add-product-to-purchase">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Kode/Nama Barang</label>
-                            <input class="form-control" id="sku" placeholder="" name="sku" type="text" value="SKU-PROD-11">
+                            <input class="form-control" id="sku" autocomplete="off" name="sku" type="text" url="{{ url('product/autocomplete') }}">
+                            <div id="autocomplete-result"></div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Jumlah</label>

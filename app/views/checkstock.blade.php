@@ -29,7 +29,8 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="sku">
+                            <input class="form-control" id="sku" autocomplete="off" name="sku" type="text" url="{{ url('product/autocomplete') }}">
+                            <div id="autocomplete-result"></div>
                         </div>
                         <button class="btn btn-primary btn-lg" type="submit">Check</button>    
                     </div>

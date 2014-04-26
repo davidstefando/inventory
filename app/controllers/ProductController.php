@@ -147,4 +147,36 @@
 			}
 		}
 
-	}
+		/**
+		*
+		* Returning data from autocomplete AJAX request
+		*
+		*/
+		function autocomplete(){
+			if (Request::ajax()) {
+				$products = Product::where('sku', 'like', '%' . Input::get('qry') . '%')
+										->orWhere('name', 'like', '%' . Input::get('qry') . '%')
+										->get();
+
+				$result = "<table width=100%>
+								<tr>
+									<th>SKU</th>
+									<th>Nama</th>
+								</tr>";
+
+				foreach ($products as $product) {
+					$result .= "<tr onclick=autocomplete_select('$product->sku')>
+									<td>$product->sku</td>
+									<td>$product->name</td>
+								</tr>";
+				}
+
+				$result .= "</table>";
+
+				return $result;
+			}
+
+			return false;
+		}
+
+	}	

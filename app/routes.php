@@ -58,6 +58,8 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('product/update/{sku}', array('uses' => 'ProductController@updateProduct'));
 	Route::post('product/update/{sku}', array('uses' => 'ProductController@editProduct'));
 
+	Route::post('product/autocomplete', array('uses' => 'ProductController@autocomplete'));	
+
 	Route::get('sell', array('uses' => 'SellController@index'));
 	Route::post('sell', array('uses' => 'SellController@sell'));
 	Route::post('sell/add', array('uses' => 'SellController@addProduct'));
