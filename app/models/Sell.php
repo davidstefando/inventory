@@ -54,7 +54,10 @@ class Sell extends Eloquent {
 			$sell = Sell::find($refcode);
 
 			for($i = 0; $i < count($input['sku']); $i++){
-				if ((is_numeric($input['qty'][$i])) && (is_numeric($input['price'][$i]))) {
+				//validate the input
+				if ((is_numeric($input['qty'][$i])) && 
+					(is_numeric($input['price'][$i])) &&
+					($input['qty'][$i] <= $this->currentStock($input['sku']))) {
 					$total = $input['qty'][$i] * $input['price'][$i];
 
 					$sell->products()->attach($input['sku'][$i], 
@@ -73,6 +76,15 @@ class Sell extends Eloquent {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	*
+	* Check product stock before selling, avoid negative stock
+	*
+	*/
+	function currentStock($sku){
+		return Product::find("SKU-PROD-11")->stock->stock;
 	}
 
 	/**

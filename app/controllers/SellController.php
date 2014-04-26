@@ -32,9 +32,10 @@
 				$return = "<tr id='$product->sku'>
 								<td><input type='hidden' name='sku[]' value=" . $product->sku . "></input>" . $product->sku . "</td>
 								<td>". $product->name . "</td>
+								<td>" . $product->stock->stock . "</td>
 								<td class='col-md-2'>
 									<div class='input-group'>
-                                        <input class='form-control' id='exampleInputEmail1' type='text' name='qty[]' value=" . Input::get('qty') . " required>
+                                        <input class='form-control' type='text' name='qty[]' value=" . Input::get('qty') . " required>
                                         <div class='input-group-addon'>Unit</div>
                                     </div>
                                 </td>

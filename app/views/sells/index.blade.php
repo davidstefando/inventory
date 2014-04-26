@@ -89,6 +89,7 @@
                                 <tbody><tr>
                                     <th>SKU</th>
                                     <th>Nama</th>
+                                    <th>Stock</th>
                                     <th>Jumlah</th>
                                     <th>Harga Sebelumnya</th>
                                     <th>Harga Jual Sekarang</th>
