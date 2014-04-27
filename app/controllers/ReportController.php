@@ -80,12 +80,15 @@
 			$total_sell = $products->sum('total');
 			$product_list = $products->get();
 
+			$month = DateTime::createFromFormat('!m', Input::get('month'));
+			$report_date = $month->format('F') . " " . Input::get('year');
+
 			return View::make('report.sell')
 					->nest('child', 'report.sell.monthly', 
 						array('total_qty' => $total_qty, 
 								'total_sell' => $total_sell,
 								'product_list' => $product_list,
-								'month' => Input::get('month')));
+								'month' => $report_date));
 		}
 
 		/**
@@ -205,12 +208,15 @@
 			$total_purchase = $products->sum('total');
 			$product_list = $products->get();
 
+			$month = DateTime::createFromFormat('!m', Input::get('month'));
+			$report_date = $month->format('F') . " " . Input::get('year');
+
 			return View::make('report.purchase')
 					->nest('child', 'report.purchase.monthly', 
 						array('total_qty' => $total_qty, 
 								'total_purchase' => $total_purchase,
 								'product_list' => $product_list,
-								'month' => Input::get('month')));
+								'month' => $report_date));
 		}
 
 		/**
