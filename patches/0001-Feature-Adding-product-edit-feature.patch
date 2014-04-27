@@ -1,0 +1,270 @@
+From ad6d210bbf6627a7a41bbade65416be1b8269edb Mon Sep 17 00:00:00 2001
+Message-Id: <ad6d210bbf6627a7a41bbade65416be1b8269edb.1398312596.git.dpdavidpratama@gmail.com>
+From: David Pratama <dpdavidpratama@gmail.com>
+Date: Thu, 24 Apr 2014 11:02:29 +0700
+Subject: [PATCH] Feature: Adding product edit feature
+
+---
+ app/controllers/ProductController.php | 44 ++++++++++++++++
+ app/models/Product.php                | 31 +++++++++++
+ app/routes.php                        |  3 ++
+ app/views/products/list.blade.php     |  6 ++-
+ app/views/products/update.blade.php   | 99 +++++++++++++++++++++++++++++++++++
+ 5 files changed, 182 insertions(+), 1 deletion(-)
+
+diff --git a/app/controllers/ProductController.php b/app/controllers/ProductController.php
+index cde599c..2c7c390 100644
+--- a/app/controllers/ProductController.php
++++ b/app/controllers/ProductController.php
+@@ -100,4 +100,48 @@
+ 
+ 		}
+ 
++		/**
++		*
++		* Showing product update form
++		*
++		*/
++		public function updateProduct($sku){
++			$category = Category::all()->lists('name', 'id');
++			$location = Location::all()->lists('name', 'id');
++			$unit = Unit::all()->lists('name', 'id');
++
++			$model = Product::find($sku);
++
++			return View::make('products.update')
++					->with(compact('category'))
++					->with(compact('unit'))
++					->with(compact('location'))
++					->with(compact('model'));
++		}
++
++		/**
++		*
++		* Eding product in database
++		*
++		*/
++		function editProduct($sku){
++			$product = Product::find($sku);
++
++			if($product->validateEdit(Input::all())){
++
++				$product->sku = Input::get('sku');
++				$product->name = Input::get('name');
++				$product->category_id = Input::get('category_id');
++				$product->location_id = Input::get('location_id');	
++				$product->unit_id = Input::get('unit_id');	
++				$product->minimum_stock = Input::get('minimum_stock');	
++				
++				$product->save();				
++
++				return Redirect::to('product/update/' . Input::get('sku'))->with('message', 'success');
++			}else{
++				return Redirect::to('product/update/' . $sku)->withErrors($product->error)->withInput();
++			}
++		}
++
+ 	}
+\ No newline at end of file
+diff --git a/app/models/Product.php b/app/models/Product.php
+index 8336bfd..e9bbb34 100644
+--- a/app/models/Product.php
++++ b/app/models/Product.php
+@@ -29,6 +29,21 @@ class Product extends Eloquent {
+ 
+ 	/**
+ 	*
++	* Validation rules when editing data
++	*
++	**/
++	protected $editRules = array(
++			'sku' => 'required',
++			'name' => 'required',
++			'category_id' => 'required',
++			'location_id' => 'required',
++			'unit_id' => 'required',
++			'minimum_stock' => 'required|min:0|numeric'
++		);
++
++
++	/**
++	*
+ 	* Validation error messages
+ 	*
+ 	**/
+@@ -104,5 +119,21 @@ class Product extends Eloquent {
+ 		return false;
+ 	}
+ 
++	/**
++	* Validating data when editing product
++	* @param data to validate
++	* @return validation status
++	*/
++	public function validateEdit($data){
++		$validator = Validator::make($data, $this->editRules);
++
++		if($validator->passes()){
++			return true;
++		}
++
++		$this->error = $validator->messages();
++		return false;
++	}
++
+ 
+ }
+\ No newline at end of file
+diff --git a/app/routes.php b/app/routes.php
+index a920a23..c9dcf11 100755
+--- a/app/routes.php
++++ b/app/routes.php
+@@ -55,6 +55,9 @@ Route::group(array('before' => 'auth'), function(){
+ 	Route::get('product/add', array('uses' => 'ProductController@addProduct'));
+ 	Route::post('product/add', array('uses' => 'ProductController@putProduct'));
+ 
++	Route::get('product/update/{sku}', array('uses' => 'ProductController@updateProduct'));
++	Route::post('product/update/{sku}', array('uses' => 'ProductController@editProduct'));
++
+ 	Route::get('sell', array('uses' => 'SellController@index'));
+ 	Route::post('sell', array('uses' => 'SellController@sell'));
+ 	Route::post('sell/add', array('uses' => 'SellController@addProduct'));
+diff --git a/app/views/products/list.blade.php b/app/views/products/list.blade.php
+index 5301a42..caa8547 100644
+--- a/app/views/products/list.blade.php
++++ b/app/views/products/list.blade.php
+@@ -67,7 +67,7 @@
+                     <div class="box-header">
+                         <h3 class="box-title">Data barang</h3>
+                         <div class="box-tools pull-right">
+-                            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>Tambah Produk</button>
++                            <a href="{{ url('product/add') }}" class="btn btn-success"><i class="fa fa-plus fa-inverse">Tambah Produk</i></a>
+                         </div>
+                     </div>
+                     <div class="box-body">
+@@ -81,6 +81,7 @@
+                                     <th>Harga Beli</th>
+                                     <th>Harga Jual</th>
+                                     <th>Stock</th>
++                                    <th>Action</th>
+                                 </tr>
+                                 @foreach ($products as $product)
+                                     <tr>
+@@ -91,6 +92,9 @@
+                                         <td>Rp {{ number_format($product->stock->buy_price, 2, ',', '.') }}</td>
+                                         <td>Rp {{ number_format($product->stock->sell_price, 2, ',', '.') }}</td>
+                                         <td>{{ $product->stock->stock }}</td>
++                                        <td>
++                                            <a href="{{ url('product/update/' . $product->sku) }}" class='label label-primary'>Edit</a>
++                                        </td>
+                                     </tr>
+                                 @endforeach
+                             </tbody></table>
+diff --git a/app/views/products/update.blade.php b/app/views/products/update.blade.php
+new file mode 100644
+index 0000000..d27fcb9
+--- /dev/null
++++ b/app/views/products/update.blade.php
+@@ -0,0 +1,99 @@
++@extends('layout')
++
++@section('title')
++	Sistem Inventeris
++@stop
++
++@section('content')
++    <!-- Content Header (Page header) -->
++    <section class="content-header">
++        <h1>
++            Edit Produk
++        </h1>
++        <ol class="breadcrumb">
++            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
++            <li><a href="#">Product</a></li>
++            <li class="active">Edit Produk</li>
++        </ol>
++    </section>
++
++    <!-- Main content -->
++    <section class="content">
++
++        @if (Session::get('message'))
++            <div class="alert alert-success alert-dismissable">
++                Produk berhasil disimpan {{ link_to('product', "Kembali Ke Daftar Product", array('class' => 'label label-success')) }}
++                <i class="fa fa-check"></i>
++                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
++            </div>
++        @elseif (!$errors->isEmpty())
++            <div class="alert alert-danger alert-dismissable">
++                @foreach($errors->all() as $error)
++                    <p>{{ $error }}</p>
++                @endforeach
++                <i class="fa fa-check"></i>
++                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>  
++            </div>
++        @endif
++
++        <div class="row">
++            <div class="col-md-12">
++                <!-- Custom Tabs (Pulled to the right) -->
++                <div class="nav-tabs-custom">
++                    <ul class="nav nav-tabs pull-right">
++                        <li class="active"><a href="#tab_1-1" data-toggle="tab">Input Data Produk</a></li>
++                        <li class="pull-left header"><i class="fa fa-plus"></i> </li>
++                    </ul>
++                    <div class="tab-content">
++                        <div class="tab-pane active" id="tab_1-1">
++                            {{ Form::model($model, array('product.update', $model->sku)) }}
++                            <div class="row">
++                                <div class="col-md-6">
++                                   <div class="form-group">
++                                        <label for="exampleInputEmail1">Kode Barang*</label>
++                                        {{ Form::text('sku', Input::old('sku'), array('class' => 'form-control', 'placeholder' => 'KB-THN-NO')) }}
++                                    </div>
++                                    <div class="form-group">
++                                        <label for="exampleInputEmail1">Nama*</label>
++                                        {{ Form::text('name', Input::old('name'), array('class' => 'form-control', 'placeholder' => 'Nama Produk')) }}
++                                    </div>
++                                    <div class="form-group">
++                                        <label for="exampleInputEmail1">Kategori*</label>
++                                        {{ Form::select('category_id', $category, null ,array('class' => 'form-control')) }}
++                                    </div>
++                                </div>
++                                <div class="col-md-6">
++                                    <div class="form-group">
++                                        <label for="exampleInputEmail1">Lokasi*</label>
++                                        {{ Form::select('location_id', $location, null ,array('class' => 'form-control')) }}
++                                    </div>
++                                    <div class="form-group">
++                                        <label for="exampleInputEmail1">Satuan*</label>
++                                        {{ Form::select('unit_id', $unit, null ,array('class' => 'form-control')) }}
++                                    </div>
++                                    <div class="form-group">
++                                        <label for="exampleInputEmail1">Stock Minimal*</label>
++                                        {{ Form::text('minimum_stock', Input::old('minimum_stock'), array('class' => 'form-control', 'placeholder' => 'Stock Minimal')) }}
++                                    </div>
++                                </div>
++                            </div>
++                            <blockquote>
++                                <small>Kolom bertanda * wajib diisi</small>
++                            </blockquote>
++                            <input type="submit" class="btn btn-success" value="Simpan"> 
++                            <input type="reset" class="btn btn-danger" value="Reset">
++                            {{ Form::close() }}
++                        </div><!-- /.tab-pane -->
++                    </div><!-- /.tab-content -->
++                </div><!-- nav-tabs-custom -->
++            </div>
++            <!-- <div class="col-md-4">
++                <div class="box box-info">
++                    <div class="box-body">
++                        Petunjuk penggunaan
++                    </div>
++                </div>
++            </div> -->
++        </div>
++    </section><!-- /.content -->
++@stop
+-- 
+1.8.1.2
+
