@@ -57,7 +57,7 @@ class Sell extends Eloquent {
 				//validate the input
 				if ((is_numeric($input['qty'][$i])) && 
 					(is_numeric($input['price'][$i])) &&
-					($input['qty'][$i] <= $this->currentStock($input['sku']))) {
+					($input['qty'][$i] <= $this->currentStock($input['sku'][$i]))) {
 					$total = $input['qty'][$i] * $input['price'][$i];
 
 					$sell->products()->attach($input['sku'][$i], 
@@ -84,7 +84,7 @@ class Sell extends Eloquent {
 	*
 	*/
 	function currentStock($sku){
-		return Product::find("SKU-PROD-11")->stock->stock;
+		return Product::find($sku)->stock->stock;
 	}
 
 	/**
