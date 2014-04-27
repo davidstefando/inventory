@@ -38,7 +38,16 @@
 
 			$total_qty = $products->sum('qty');
 			$total_sell = $products->sum('total');
-			$product_list = $products->get();
+			$product_list = $products->groupBy('sells.date', 'product_sell.sku', 'product_sell.price')
+									 ->get(array(
+											'product_sell.sku',
+											'name',
+											'sells.date',
+											'buy_price',
+											DB::raw('product_sell.price as sell_price'),
+											DB::raw('sum(qty) as qty'),
+											DB::raw('sum(total) as total')
+										));
 
 			return View::make('report.sell')
 					->nest('child', 'report.sell.daily', 
@@ -78,7 +87,16 @@
 
 			$total_qty = $products->sum('qty');
 			$total_sell = $products->sum('total');
-			$product_list = $products->get();
+			$product_list = $products->groupBy('sells.date', 'product_sell.sku', 'product_sell.price')
+									 ->get(array(
+											'product_sell.sku',
+											'name',
+											'sells.date',
+											'buy_price',
+											DB::raw('product_sell.price as sell_price'),
+											DB::raw('sum(qty) as qty'),
+											DB::raw('sum(total) as total')
+										));
 
 			$month = DateTime::createFromFormat('!m', Input::get('month'));
 			$report_date = $month->format('F') . " " . Input::get('year');
@@ -120,7 +138,17 @@
 
 			$total_qty = $products->sum('qty');
 			$total_sell = $products->sum('total');
-			$product_list = $products->get();
+			$product_list = $products->groupBy('sells.date', 'product_sell.sku', 'product_sell.price')
+									 ->get(array(
+											'product_sell.sku',
+											'name',
+											'sells.date',
+											'buy_price',
+											DB::raw('product_sell.price as sell_price'),
+											DB::raw('sum(qty) as qty'),
+											DB::raw('sum(total) as total')
+										));
+
 
 			return View::make('report.sell')
 					->nest('child', 'report.sell.year', 
@@ -166,7 +194,16 @@
 
 			$total_qty = $products->sum('qty');
 			$total_purchase = $products->sum('total');
-			$product_list = $products->get();
+			$product_list = $products->groupBy('purchases.date', 'product_purchase.sku', 'product_purchase.price')
+									 ->get(array(
+											'product_purchase.sku',
+											'name',
+											'purchases.date',
+											'buy_price',
+											DB::raw('product_purchase.price as sell_price'),
+											DB::raw('sum(qty) as qty'),
+											DB::raw('sum(total) as total')
+										));
 
 			return View::make('report.purchase')
 					->nest('child', 'report.purchase.daily', 
@@ -206,7 +243,16 @@
 
 			$total_qty = $products->sum('qty');
 			$total_purchase = $products->sum('total');
-			$product_list = $products->get();
+			$product_list = $products->groupBy('purchases.date', 'product_purchase.sku', 'product_purchase.price')
+									 ->get(array(
+											'product_purchase.sku',
+											'name',
+											'purchases.date',
+											'buy_price',
+											DB::raw('product_purchase.price as sell_price'),
+											DB::raw('sum(qty) as qty'),
+											DB::raw('sum(total) as total')
+										));
 
 			$month = DateTime::createFromFormat('!m', Input::get('month'));
 			$report_date = $month->format('F') . " " . Input::get('year');
@@ -248,7 +294,16 @@
 
 			$total_qty = $products->sum('qty');
 			$total_purchase = $products->sum('total');
-			$product_list = $products->get();
+			$product_list = $products->groupBy('purchases.date', 'product_purchase.sku', 'product_purchase.price')
+									 ->get(array(
+											'product_purchase.sku',
+											'name',
+											'purchases.date',
+											'buy_price',
+											DB::raw('product_purchase.price as sell_price'),
+											DB::raw('sum(qty) as qty'),
+											DB::raw('sum(total) as total')
+										));
 
 			return View::make('report.purchase')
 					->nest('child', 'report.purchase.year', 
