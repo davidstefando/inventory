@@ -20,7 +20,7 @@ class CategoryController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('other.category.create');
 	}
 
 	/**
@@ -30,7 +30,17 @@ class CategoryController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$category = new Category;
+
+		$category->name = Input::get('name');
+
+		if ($category->validate(Input::all())) {
+			$category->save();
+
+			return Redirect::to('category/create')->with('message', 'success');
+		} else {
+			return Redirect::to('category/create')->withErrors($category->error)->withInput();
+		}
 	}
 
 	/**
@@ -52,7 +62,9 @@ class CategoryController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$model = Category::find($id);
+
+		return View::make('other.category.update', compact('model'));
 	}
 
 	/**
@@ -63,7 +75,11 @@ class CategoryController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$model = Category::find($id);
+		$model->name = Input::get('name');
+		$model->save();
+
+		return Redirect::to('category');
 	}
 
 	/**

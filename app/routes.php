@@ -44,10 +44,7 @@ Route::get('logout', array('as' => 'logout', function(){
 
 Route::group(array('before' => 'auth'), function(){
 
-	Route::get('/', function()
-	{
-		return View::make('index');
-	});
+	Route::get('/', array('uses' => 'HomeController@dashboard'));
 
 	Route::get('product', array('uses' => 'ProductController@showProduct'));
 	Route::post('product', array('uses' => 'ProductController@filterProduct'));
@@ -78,5 +75,11 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('stock/check', array('uses' => 'StockController@checkStock'));
 	Route::post('stock/check', array('uses' => 'StockController@showStock'));
+
+	Route::resource('category', 'CategoryController');
+	Route::resource('unit', 'UnitController');
+	Route::resource('supplier', 'SupplierController');
+	Route::resource('location', 'LocationController');
+
 
 });

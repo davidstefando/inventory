@@ -9,7 +9,8 @@ class LocationController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$locations = Location::all();
+		return View::make('other.location.index', compact('locations'));
 	}
 
 	/**
@@ -19,7 +20,7 @@ class LocationController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('other.location.create');
 	}
 
 	/**
@@ -29,7 +30,17 @@ class LocationController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$location = new Location;
+
+		$location->name = Input::get('name');
+
+		if ($location->validate(Input::all())) {
+			$location->save();
+
+			return Redirect::to('location/create')->with('message', 'success');
+		} else {
+			return Redirect::to('location/create')->withErrors($location->error)->withInput();
+		}
 	}
 
 	/**
@@ -51,7 +62,9 @@ class LocationController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$model = Location::find($id);
+
+		return View::make('other.location.update', compact('model'));
 	}
 
 	/**
@@ -62,7 +75,11 @@ class LocationController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$model = Location::find($id);
+		$model->name = Input::get('name');
+		$model->save();
+
+		return Redirect::to('location');
 	}
 
 	/**

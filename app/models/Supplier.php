@@ -1,6 +1,6 @@
 <?php
 
-class Location extends Eloquent{
+class Supplier extends Eloquent{
 	/**
 	*
 	* Validation rules

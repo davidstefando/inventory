@@ -9,7 +9,8 @@ class UnitController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$units = Unit::all();
+		return View::make('other.unit.index', compact('units'));
 	}
 
 	/**
@@ -19,7 +20,7 @@ class UnitController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('other.unit.create');
 	}
 
 	/**
@@ -29,7 +30,17 @@ class UnitController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$unit = new Unit;
+
+		$unit->name = Input::get('name');
+
+		if ($unit->validate(Input::all())) {
+			$unit->save();
+
+			return Redirect::to('unit/create')->with('message', 'success');
+		} else {
+			return Redirect::to('unit/create')->withErrors($unit->error)->withInput();
+		}
 	}
 
 	/**
@@ -51,7 +62,9 @@ class UnitController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$model = Unit::find($id);
+
+		return View::make('other.unit.update', compact('model'));
 	}
 
 	/**
@@ -62,7 +75,11 @@ class UnitController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$model = Unit::find($id);
+		$model->name = Input::get('name');
+		$model->save();
+
+		return Redirect::to('unit');
 	}
 
 	/**

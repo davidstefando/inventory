@@ -44,7 +44,10 @@
 		                        <td>{{ $category->name }}</td>
 		                        <td>
 		                        	{{ link_to('category/' . $category->id . '/edit', 'Edit', array('class' => 'label label-primary')) }}
-		                        	{{ link_to('category/' . $category->id . '/edit', 'Delete', array('class' => 'label label-danger')) }}
+		                        	<!-- {{ Form::open(array('url' => 'category/' . $category->id))}}
+                                                                            {{ Form::hidden('_method', 'DELETE') }}
+                                                                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                                                                        {{ Form::close() }} -->
 		                        </td>
 		                    </tr>                      
                         	@endforeach

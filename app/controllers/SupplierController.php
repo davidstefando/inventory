@@ -9,7 +9,8 @@ class SupplierController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$suppliers = Supplier::all();
+		return View::make('other.supplier.index', compact('suppliers'));
 	}
 
 	/**
@@ -19,7 +20,7 @@ class SupplierController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('other.supplier.create');
 	}
 
 	/**
@@ -29,7 +30,17 @@ class SupplierController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$supplier = new Supplier;
+
+		$supplier->name = Input::get('name');
+
+		if ($supplier->validate(Input::all())) {
+			$supplier->save();
+
+			return Redirect::to('supplier/create')->with('message', 'success');
+		} else {
+			return Redirect::to('supplier/create')->withErrors($supplier->error)->withInput();
+		}
 	}
 
 	/**
@@ -51,7 +62,9 @@ class SupplierController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$model = Supplier::find($id);
+
+		return View::make('other.supplier.update', compact('model'));
 	}
 
 	/**
@@ -62,7 +75,11 @@ class SupplierController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$model = Supplier::find($id);
+		$model->name = Input::get('name');
+		$model->save();
+
+		return Redirect::to('supplier');
 	}
 
 	/**
