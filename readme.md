@@ -1,21 +1,21 @@
-## Laravel PHP Framework
+## Sistem Inventory
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework) [![License](https://poser.pugx.org/laravel/framework/license.png)](https://packagist.org/packages/laravel/framework) 
+### Deskripsi
+Aplikasi ini berfungsi untuk membantu proses pengelolaan barang, yang meliputi barang masuk dan barang keluar. Aplikasi ini dapat menampilkan daftar produk, laporan, dan juga melakukan berbagai transaksi yang berhubungan dengan pengelolaan barang dalam gudang atau toko
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+**Aplikasi ini bukan sistem POS**
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+### Cara Instalasi
+1. Install server dengan requirement sbb:
+	a. PHP >= 5.4
+	b. Extensi MCrypt PHP
+	c. Database MySQL
+2. Buat database dengan nama "inventory"
+3. Import database dari file "inventory.sql"
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-## Official Documentation
+### Demo
+untuk login 
+username:admin
+password:1234
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
-
-### Contributing To Laravel
-
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
