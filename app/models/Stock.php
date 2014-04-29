@@ -9,6 +9,13 @@ class Stock extends Eloquent{
 	*/
 	protected $table = 'stock';
 
+	/*
+	*
+	* Model primary key
+	*
+	*/
+	protected $primaryKey = 'sku';
+
 	/**
 	*
 	* we don't need to use timestamp field

@@ -94,8 +94,8 @@
                                     <th>Harga Sebelumnya</th>
                                     <th>Harga Jual Sekarang</th>
                                     <th>Action</th>
-                                </tr>
-                            </tbody></table>
+                                </tr></tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="box-footer">

@@ -944,6 +944,7 @@ return array(
     'Stack\\StackedHttpKernel' => $vendorDir . '/stack/builder/src/Stack/StackedHttpKernel.php',
     'Stock' => $baseDir . '/app/models/Stock.php',
     'StockController' => $baseDir . '/app/controllers/StockController.php',
+    'Supplier' => $baseDir . '/app/models/Supplier.php',
     'SupplierController' => $baseDir . '/app/controllers/SupplierController.php',
     'Symfony\\Component\\BrowserKit\\Client' => $vendorDir . '/symfony/browser-kit/Symfony/Component/BrowserKit/Client.php',
     'Symfony\\Component\\BrowserKit\\Cookie' => $vendorDir . '/symfony/browser-kit/Symfony/Component/BrowserKit/Cookie.php',
