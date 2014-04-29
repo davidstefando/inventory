@@ -75,11 +75,15 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('stock/check', array('uses' => 'StockController@checkStock'));
 	Route::post('stock/check', array('uses' => 'StockController@showStock'));
+	Route::get('stock/report', array('uses' => 'ReportController@stockReport'));
 
 	Route::resource('category', 'CategoryController');
 	Route::resource('unit', 'UnitController');
 	Route::resource('supplier', 'SupplierController');
 	Route::resource('location', 'LocationController');
+
+	Route::get('setting/app', array('uses' => 'SettingController@application'));
+	Route::get('setting/user', array('uses' => 'SettingController@user'));
 
 
 });

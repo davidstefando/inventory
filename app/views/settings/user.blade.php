@@ -8,12 +8,12 @@
 	<!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Pengaturan Aplikasi
+            Pengaturan User
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li>Pengaturan</li>
-            <li class="active">Aplikasi</li>
+            <li class="active">User</li>
         </ol>
     </section>
 
