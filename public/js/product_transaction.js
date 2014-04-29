@@ -28,12 +28,13 @@
 	$("#add-product-to-purchase").submit(function(){
 		var sku = $("#sku").val();
 		var qty = $("#qty").val();
+		var supplier = $("#supplier").val();
 
 		if(!document.getElementById(sku)){
 			$.ajax({
 			'url':'purchase/add',
 			'method':'post',
-			'data': {"sku":sku , "qty":qty},
+			'data': {"sku":sku , "qty":qty, "supplier":supplier},
 			'success':function(data){
 				$("#temp-product").append(data);
 				}

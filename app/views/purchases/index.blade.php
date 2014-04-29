@@ -33,6 +33,7 @@
             </div>
         @endif
        <div class="row">
+            {{ Form::open(array('id' => 'add-product-to-purchase')) }}
             <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header">
@@ -53,6 +54,10 @@
                                 <input class="form-control" type="text" value="{{ date('Y-m-d') }}" disabled>
                             </div><!-- /.input group -->
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Supplier*</label>
+                            {{ Form::select('supplier_id', $suppliers, null ,array('class' => 'form-control', 'id' => 'supplier')) }}
+                        </div>
                     </div>
                 </div>       
             </div>
@@ -63,7 +68,6 @@
                         <h3 class="box-title">Data Barang</h3>
                     </div>
                     <div class="box-body">
-                        <form method="post" id="add-product-to-purchase">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Kode/Nama Barang</label>
                             <input class="form-control" id="sku" autocomplete="off" name="sku" type="text" url="{{ url('product/autocomplete') }}">
@@ -74,10 +78,10 @@
                             <input class="form-control" id="qty" placeholder="" name="qty" type="text">
                         </div>
                         <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>Tambah Barang</button>
-                        </form>
                     </div>
                 </div>       
             </div>
+            {{ Form::close() }}
        </div>
        <div class="row">
             <div class="col-md-12">

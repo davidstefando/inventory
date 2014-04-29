@@ -13,7 +13,7 @@ class Purchase extends Eloquent {
 	* Allowed field in mass assignment
 	*
 	*/
-	protected $fillable = array('id', 'date');
+	protected $fillable = array('id', 'date', 'supplier_id');
 
 	/**
 	*
@@ -34,7 +34,7 @@ class Purchase extends Eloquent {
 		if (array_key_exists('sku', $input)) {
 			$refcode = Purchase::getRefCode();
 
-			Purchase::create(array('id' => $refcode, 'date' => date('Y-m-d')));
+			Purchase::create(array('id' => $refcode, 'supplier_id' => $input['supplier'], 'date' => date('Y-m-d')));
 			
 			$purchase = Purchase::find($refcode);
 

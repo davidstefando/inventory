@@ -2,7 +2,9 @@
 	
 class PurchaseController extends BaseController{
 		protected function index(){
-			return View::make('purchases.index');
+			$suppliers = Supplier::all()->lists('name', 'id');
+			return View::make('purchases.index')
+							->with(compact('suppliers'));
 		}
 
 		/**
@@ -29,6 +31,7 @@ class PurchaseController extends BaseController{
 				$product = Product::find(Input::get('sku'));
 				
 				$return = "<tr id='$product->sku'>
+								<input type='hidden' name='supplier' value=" . Input::get('supplier') . "
 								<td><input type='hidden' name='sku[]' value=" . $product->sku . "></input>" . $product->sku . "</td>
 								<td>". $product->name . "</td>
 								<td class='col-md-2'>
