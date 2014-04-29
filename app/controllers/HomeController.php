@@ -2,22 +2,23 @@
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+	public function dashboard(){
 
-	public function showWelcome()
-	{
-		return View::make('hello');
+		$alert = Product::alertProduct();
+		
+		return View::make('index')
+						->with(array('alert' => $alert));
 	}
+
+	private function sellStatistic(){
+		return DB::table('sells')
+			->join('product_sell', 'sells.id', '=', 'product_sell.sell_id')
+			->groupBy('date')
+			->get(array(
+					DB::raw('sum(qty) as total')
+				));
+	}
+
+
 
 }

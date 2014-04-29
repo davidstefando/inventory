@@ -24,12 +24,8 @@
                     <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>
-                                15:00
-                            </h3>
-                            <p>
-                                Senin, 21 Maret 2014
-                            </p>
+                            <h3 id="time"></h3>
+                            <p id="date"></p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-calendar"></i>
@@ -44,7 +40,7 @@
                     <div class="small-box bg-red">
                         <div class="inner">
                             <h3>
-                                5 Produk
+                                {{ $alert }} Produk
                             </h3>
                             <p>
                                 Mencapai Stock Minimum
@@ -64,12 +60,11 @@
                         <h3 class="box-title">Statistik Perkembangan Toko</h3>
                     </div>
                     <div class="box-body">
-                       
+                       <div id="line-chart" style="height: 300px;"></div>
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                         
                     </div><!-- /.box-footer-->
                 </div>
-
     </section><!-- /.content -->
 @stop

@@ -135,5 +135,19 @@ class Product extends Eloquent {
 		return false;
 	}
 
+	/**
+	*
+	* Get product reached minimum stock
+	*
+	*/
+	public static function alertProduct(){
+		return DB::table('products')
+						->join('stock', function($join)
+						{
+							$join->on('products.sku', '=', 'stock.sku');
+							$join->on('stock.stock', '<=', 'products.minimum_stock');
+						})->count();
+	}
+
 
 }
