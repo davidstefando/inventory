@@ -17,7 +17,74 @@ class SettingController extends BaseController{
 	*
 	*/
 	function user(){
-		return View::make('settings.user');
+		$users = User::get(array('id' ,'username', 'email', 'created_at'));
+		return View::make('settings.user.user', compact('users'));
+	}
+
+	/**
+	*
+	* display new user form
+	*
+	*/
+	function addUser(){
+		return View::make('settings.user.add');
+	}
+
+	/**
+	*
+	* display user password change form
+	*
+	*/
+	function userPassword(){
+		return View::make('settings.user.password');
+	}
+
+	/**
+	*
+	* registering new user
+	*
+	*/
+	function registerUser(){
+		$user = new User;
+		$user->username = Input::get('username');
+		$user->email = Input::get('email');
+		$user->password = Hash::make(Input::get('password'));
+		$user->save();
+
+		return Redirect::to('setting/user');
+	}
+
+	/**
+	*
+	* deleting user
+	*
+	*/
+	function deleteUser($id){
+		$user = User::find($id);
+
+		$user->delete();
+
+		return Redirect::to('setting/user');
+	}
+
+	/**
+	*
+	* editing user password in the database
+	*
+	*/
+	function editUserPassword(){
+		$user_id = Auth::user()->id;
+		$user_password = Auth::user()->password;
+		$old_password = Input::get('old_password');
+		$new_password = Hash::make(Input::get('new_password'));
+
+		if (Auth::validate(array('id' => $user_id, 'password' => $old_password))) {
+			$user = User::find($user_id);
+			$user->password = $new_password;
+			$user->save();
+			return Redirect::to('setting/user');
+		}
+		return Redirect::to('setting/user/password');
 	}
 
 	/**

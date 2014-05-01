@@ -84,8 +84,14 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('setting/app', array('uses' => 'SettingController@application'));
 	Route::get('setting/user', array('uses' => 'SettingController@user'));
+	Route::get('setting/user/add', array('uses' => 'SettingController@addUser'));
+	Route::get('setting/user/password', array('uses' => 'SettingController@userPassword'));
+	
+	Route::get('setting/user/delete/{id}', array('uses' => 'SettingController@deleteUser'));
 
 	Route::post('setting/app', array('uses' => 'SettingController@updateAppSetting'));
+	Route::post('setting/user/add', array('uses' => 'SettingController@registerUser'));
+	Route::post('setting/user/password', array('uses' => 'SettingController@editUserPassword'));
 
 
 });
