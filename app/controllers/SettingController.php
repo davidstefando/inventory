@@ -98,8 +98,8 @@ class SettingController extends BaseController{
 
 		//update organization logo setting
 		if (Input::hasFile('organization_logo')) {
-			Input::file('organization_logo')->move('public/img', 'organization_name');
-			$file_name = 'public/img/organization_name' . Input::file('organization_logo')->getClientOriginalName();
+			Input::file('organization_logo')->move('public/img', 'organization_logo' . '.' . Input::file('organization_logo')->getClientOriginalExtension());
+			$file_name = 'public/img/organization_logo' . '.' . Input::file('organization_logo')->getClientOriginalExtension();
 			Setting::set('organization_logo', $file_name);
 		}
 
