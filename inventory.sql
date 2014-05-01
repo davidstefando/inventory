@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 29, 2014 at 10:25 AM
+-- Generation Time: May 01, 2014 at 09:17 PM
 -- Server version: 5.5.34-0ubuntu0.13.04.1
 -- PHP Version: 5.4.9-4ubuntu2.4
 
@@ -30,7 +30,14 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'Barang Elektronik');
 
 -- --------------------------------------------------------
 
@@ -42,7 +49,14 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `name`) VALUES
+(1, 'Rak 1');
 
 -- --------------------------------------------------------
 
@@ -62,6 +76,13 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`sku`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`sku`, `name`, `category_id`, `location_id`, `unit_id`, `minimum_stock`, `created_at`, `updated_at`) VALUES
+('SKU-PROD-1', 'Produk Gak Jelas', 1, 1, 1, 0, '2014-05-01 20:33:25', '2014-05-01 20:33:25');
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +98,13 @@ CREATE TABLE IF NOT EXISTS `product_purchase` (
   KEY `purchase_id` (`purchase_id`),
   KEY `sku` (`sku`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_purchase`
+--
+
+INSERT INTO `product_purchase` (`purchase_id`, `sku`, `qty`, `price`, `total`) VALUES
+('PURCHASE-1', 'SKU-PROD-1', 100, 0, 0);
 
 --
 -- Triggers `product_purchase`
@@ -105,6 +133,15 @@ CREATE TABLE IF NOT EXISTS `product_sell` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `product_sell`
+--
+
+INSERT INTO `product_sell` (`sell_id`, `sku`, `qty`, `price`, `total`) VALUES
+('SELL-1', 'SKU-PROD-1', 10, 0, 0),
+('SELL-2', 'SKU-PROD-1', 11, 0, 0),
+('SELL-3', 'SKU-PROD-1', 10, 0, 0);
+
+--
 -- Triggers `product_sell`
 --
 DROP TRIGGER IF EXISTS `reduce_stock`;
@@ -126,6 +163,13 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `supplier_id`, `date`) VALUES
+('PURCHASE-1', 0, '2014-05-01');
+
 -- --------------------------------------------------------
 
 --
@@ -136,6 +180,35 @@ CREATE TABLE IF NOT EXISTS `sells` (
   `id` varchar(15) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sells`
+--
+
+INSERT INTO `sells` (`id`, `date`) VALUES
+('SELL-1', '2014-05-01'),
+('SELL-2', '2014-04-01'),
+('SELL-3', '2014-06-01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `name` varchar(50) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`name`, `value`) VALUES
+('organization_logo', 'public/img/organization_logo.jpg'),
+('organization_name', 'Toko Jaya Abadi');
 
 -- --------------------------------------------------------
 
@@ -151,6 +224,13 @@ CREATE TABLE IF NOT EXISTS `stock` (
   `date` date NOT NULL,
   KEY `sku` (`sku`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stock`
+--
+
+INSERT INTO `stock` (`sku`, `stock`, `buy_price`, `sell_price`, `date`) VALUES
+('SKU-PROD-1', 69, 0, 0, '2014-05-01');
 
 -- --------------------------------------------------------
 
@@ -174,7 +254,14 @@ CREATE TABLE IF NOT EXISTS `units` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `units`
+--
+
+INSERT INTO `units` (`id`, `name`) VALUES
+(1, 'KG');
 
 -- --------------------------------------------------------
 
@@ -195,22 +282,24 @@ CREATE TABLE IF NOT EXISTS `unit_prices` (
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` varchar(3) NOT NULL,
+  `id` int(3) NOT NULL AUTO_INCREMENT,
   `email` varchar(70) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(65) NOT NULL,
   `remember_token` varchar(100) NOT NULL,
   `credential` varchar(7) NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `remember_token`, `credential`, `created_at`, `updated_at`) VALUES
-('1', 'dpdavidpratama@gmail.com', 'admin', '$2y$10$XGPXK85Yi0O5hPUT0XxIi.0GfbK35tPcKqksHwXwF8y3M5s36BWfm', 'Y5ehQvtr72GPfs8ORHG5hP1ZhuhlEltxGVkNOHKUxQJSz5P1aPe0aHXjMdPf', 'admin', '0000-00-00 00:00:00', '2014-04-29 10:25:25');
+(4, 'dpdavidpratama@gmail.com', 'admin', '$2y$10$CDaMLcZUAQnO1ypvAtZccuX1hd4L2zRz4WWniRcs7KNkfP65pb23W', '', '', '2014-05-01 19:17:27', '2014-05-01 19:17:27');
 
 --
 -- Constraints for dumped tables
