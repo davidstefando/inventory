@@ -19,10 +19,14 @@
 
     <!-- Main content -->
     <section class="content">
-    	{{ Form::open() }}
+    	{{ Form::open(array('files' => true)) }}
         <div class="form-group">
             <label for="exampleInputEmail1">Nama Toko*</label>
-            {{ Form::text('sku', Input::old('sku'), array('class' => 'form-control')) }}
+            {{ Form::text('organization_name', Setting::get('organization_name'), array('class' => 'form-control')) }}
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Logo Toko*</label>
+            {{ Form::file('organization_logo', null, array('class' => 'form-control')) }}
         </div>
         <input type="submit" class="btn btn-success" value="Simpan"> 
         <input type="reset" class="btn btn-danger" value="Reset">

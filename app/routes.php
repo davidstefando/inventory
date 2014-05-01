@@ -85,5 +85,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('setting/app', array('uses' => 'SettingController@application'));
 	Route::get('setting/user', array('uses' => 'SettingController@user'));
 
+	Route::post('setting/app', array('uses' => 'SettingController@updateAppSetting'));
+
 
 });
