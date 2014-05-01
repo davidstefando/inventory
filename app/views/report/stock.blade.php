@@ -8,7 +8,7 @@
 	<div class="box box-solid">
                     <div class="box-header">
                         <i class="fa fa-book"></i>
-                        <h3 class="box-title">Laporan Stock "Toko Jaya"</h3>
+                        <h3 class="box-title">Laporan Stock {{ Setting::get('organization_name') }}</h3>
                         <div class="box-tools pull-right">
                             <button class="btn btn-success pull-right no-print" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
                         </div>
